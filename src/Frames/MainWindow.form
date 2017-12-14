@@ -159,7 +159,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="&#x414;&#x43e;&#x448;&#x43a;&#x43e;&#x43b;&#x44c;&#x43d;&#x43e;&#x435; &#x43e;&#x431;&#x440;&#x430;&#x437;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;"/>
+    <Property name="title" type="java.lang.String" value="Lazy Remote"/>
     <Property name="bounds" type="java.awt.Rectangle" editor="org.netbeans.beaninfo.editors.RectangleEditor">
       <Rectangle value="[150, 150, 1, 1]"/>
     </Property>

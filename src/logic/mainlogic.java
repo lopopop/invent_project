@@ -13,7 +13,15 @@ import static java.awt.SystemColor.text;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.SQLException;
+import javax.crypto.SecretKey;
+
 
 
 /**
@@ -22,6 +30,10 @@ import java.sql.SQLException;
  */
 
 public class mainlogic {
+    public  void RSA_CHECK(String pass) throws NoSuchAlgorithmException, KeyStoreException
+    {
+    
+    }
   	public static boolean init_db() throws ClassNotFoundException, SQLException, IOException, InstantiationException, IllegalAccessException {
             
 		conn.Conn();

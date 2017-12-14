@@ -83,6 +83,10 @@ public class PreSchoolEducation {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException, AWTException, Throwable {
          
         logic.OneInstance.singleAppInstanceCheck();
+        
+       File file = new File("config\\config.cfg");
+        file.setReadable(true);
+        
         conn.open_and_save_config();
        Image image = Toolkit.getDefaultToolkit().createImage( welc.getClass().getResource("/res/icon_LARGE.png") );
        welc.setIconImage( image );

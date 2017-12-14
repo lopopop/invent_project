@@ -46,6 +46,8 @@ import static logic.conn.list_flag;
 import static logic.conn.list_tr;
 import static logic.conn.server_db;
 import static logic.conn.server_old_db;
+import static logic.conn.tightvnc_pass_a;
+import static logic.conn.tightvnc_pass_v;
 import static logic.mainlogic.ping_some;
 import static preschooleducation.PreSchoolEducation.addTrayIcon;
 
@@ -156,7 +158,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Дошкольное образование");
+        setTitle("Lazy Remote");
         setBounds(new java.awt.Rectangle(150, 150, 1, 1));
         setIconImages(null);
         setResizable(false);
@@ -295,10 +297,10 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jTable1.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 jTable1CaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -782,7 +784,7 @@ implements Runnable		//(содержащее метод run())
   //    about.setLocationRelativeTo(null);
   //     about.setVisible(true);
          try {
-             URI uri = new URI("https://gedonism.wordpress.com/2017/12/13/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0-%D1%83%D0%B4%D0%B0%D0%BB%D1%91%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B4%D0%BB%D1%8F/");
+             URI uri = new URI("https://lopopop6810.livejournal.com/561.html");
             java.awt.Desktop.getDesktop().browse(uri);
          
         } catch (IOException ex) {
@@ -835,7 +837,7 @@ implements Runnable		//(содержащее метод run())
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         Runtime run = Runtime.getRuntime();
         try {
-            Process pr = run.exec("tvnviewer "+ model.getValueAt(jTable1.getSelectedRow(),1) +" -password=1");
+            Process pr = run.exec("tvnviewer "+ model.getValueAt(jTable1.getSelectedRow(),1) +" -password="+tightvnc_pass_v);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1049,7 +1051,7 @@ update_base = true;
            {
        Runtime run = Runtime.getRuntime();
         try {
-            Process pr = run.exec("tvnviewer "+ model.getValueAt(jTable1.getSelectedRow(),1) +" -password=1");
+            Process pr = run.exec("tvnviewer "+ model.getValueAt(jTable1.getSelectedRow(),1) +" -password="+tightvnc_pass_v);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1137,7 +1139,7 @@ value_changed();
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
        Runtime run = Runtime.getRuntime();
         try {
-            Process pr = run.exec("tvnviewer "+ jTextField1.getText().trim() +" -password=1");
+            Process pr = run.exec("tvnviewer "+ jTextField1.getText().trim() +" -password="+tightvnc_pass_v);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1152,7 +1154,7 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
         Runtime run = Runtime.getRuntime();
         try {
-            Process pr = run.exec("tvnviewer "+ jTextField1.getText().trim()  +" -password=112358132134");
+            Process pr = run.exec("tvnviewer "+ jTextField1.getText().trim()  +" -password="+tightvnc_pass_a);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1203,7 +1205,7 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER)
   for (int i=0;i<jTable1.getRowCount();i++)
   {
         try {
-           Process pr =  run.exec("tvnviewer "+ model.getValueAt(i,1) +" -password=1 -viewonly");
+           Process pr =  run.exec("tvnviewer "+ model.getValueAt(i,1) +" -password="+tightvnc_pass_v);
 //           sleep(100);
 //           Process pr2 =    run.exec("cmdow.exe /TH");
 
@@ -1241,7 +1243,7 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER)
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
   Runtime run = Runtime.getRuntime();
         try {
-            Process pr = run.exec("tvnviewer "+ model.getValueAt(jTable1.getSelectedRow(),1) +" -password=112358132134");
+            Process pr = run.exec("tvnviewer "+ model.getValueAt(jTable1.getSelectedRow(),1) +" -password="+tightvnc_pass_a);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1257,7 +1259,7 @@ if (evt.getKeyCode() == KeyEvent.VK_ENTER)
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
           Runtime run = Runtime.getRuntime();
         try {
-            Process pr = run.exec("tvnviewer "+ jTextField1.getText().trim() +" -password=112358132134");
+            Process pr = run.exec("tvnviewer "+ jTextField1.getText().trim() +" -password="+tightvnc_pass_a);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
