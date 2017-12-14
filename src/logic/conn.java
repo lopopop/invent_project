@@ -9,7 +9,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -37,6 +40,8 @@ public class conn {
         public static boolean MYSQL_ON = false;
         private static String MYSQL_user = "1";
     private static String MYSQL_password = "1";
+    public static String tightvnc_pass_a = "1";
+    public static String tightvnc_pass_v = "1";
         
         
          
@@ -67,6 +72,17 @@ public class conn {
 if (!MYSQL_ON)    Files.copy(source.toPath(), dest.toPath());
 }
         
+        public static String hashing(String PASSWORDTEXT) throws NoSuchAlgorithmException
+        {
+            PASSWORDTEXT+= "qR546454KASKDFJQUOQWswasdasdasdqlwek12313";
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(PASSWORDTEXT.getBytes(StandardCharsets.UTF_8));
+            return Arrays.toString(hash);
+        }
+        
+        
+        
+        
         @SuppressWarnings("empty-statement")
        private static List<String> readFile(String filename) throws IOException
 {
@@ -85,8 +101,11 @@ if (!MYSQL_ON)    Files.copy(source.toPath(), dest.toPath());
             }
         catch (IOException e)
              {
-                System.out.println("Ошибка во время чтения файла config.cfg '%s'.");
-                File file = new File("config.cfg");
+                System.out.println("Ошибка во время чтения файла " + filename);
+                System.out.println("Создание нового файла "+filename); 
+                File myPath = new File("config");
+                    myPath.mkdir();
+                File file = new File("config\\config.cfg");
                   try {
         //проверяем, что если файл не существует то создаем его
         if(!file.exists()){
@@ -103,6 +122,8 @@ if (!MYSQL_ON)    Files.copy(source.toPath(), dest.toPath());
     } catch(IOException ex) {
         throw new RuntimeException(ex);
     }
+                 
+                  file.setReadable(false);
                   List list_temp = Arrays.asList(text);;
                 return list_temp;
   }
@@ -111,7 +132,9 @@ if (!MYSQL_ON)    Files.copy(source.toPath(), dest.toPath());
        public static void open_and_save_config() throws IOException
        {
            List<String> records;
-           records = readFile("config.cfg");
+           File file = new File("config\\config.cfg");
+                  file.setReadable(true);
+           records = readFile("config\\config.cfg");
            for (int i=0;i<records.size();i++)
            {
            String temp = records.get(i).trim();
@@ -128,22 +151,40 @@ if (!MYSQL_ON)    Files.copy(source.toPath(), dest.toPath());
                server_db = String.valueOf(buf);
                System.out.println("msqlon" + server_db); 
            }
-           if (temp.matches("(.*)USER(.*)"))
+           if (temp.matches("(.*)SQLUSER(.*)"))
            {
-              int start = 4; 
+              int start = 7; 
                int end = temp.length();
                char buf[] = new char[end - start];
                temp.getChars(start, end, buf, 0);
                MYSQL_user = String.valueOf(buf);
                System.out.println("msqlon" + server_db); 
            }
-           if (temp.matches("(.*)PASS(.*)"))
+           if (temp.matches("(.*)SQLPASS(.*)"))
            {
-              int start = 4; 
+              int start = 7; 
                int end = temp.length();
                char buf[] = new char[end - start];
                temp.getChars(start, end, buf, 0);
                MYSQL_password = String.valueOf(buf);
+               System.out.println("msqlon" + server_db); 
+           }
+             if (temp.matches("(.*)VNCPASS_V(.*)"))
+           {
+              int start = 9; 
+               int end = temp.length();
+               char buf[] = new char[end - start];
+               temp.getChars(start, end, buf, 0);
+               tightvnc_pass_v = String.valueOf(buf);
+               System.out.println("msqlon" + server_db); 
+           }
+               if (temp.matches("(.*)VNCPASS_A(.*)"))
+           {
+              int start = 9; 
+               int end = temp.length();
+               char buf[] = new char[end - start];
+               temp.getChars(start, end, buf, 0);
+               tightvnc_pass_a = String.valueOf(buf);
                System.out.println("msqlon" + server_db); 
            }
            if (temp.matches("(.*)VERSION(.*)"))
@@ -174,6 +215,8 @@ if (!MYSQL_ON)    Files.copy(source.toPath(), dest.toPath());
                System.out.println(server_old_db);
             }
            }
+          
+                  file.setReadable(false);
        }
        
          
@@ -256,6 +299,7 @@ if (!MYSQL_ON)    Files.copy(source.toPath(), dest.toPath());
                 statmt.execute("CREATE TABLE if not exists 'Komps' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'number' text, 'ips' text, 'flag' text);");
                 statmt.execute("CREATE TABLE if not exists 'VERSION' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'GET_VERSION' text);");
 		System.out.println("Таблица создана или уже существует.");
+                
                }
                else 
                {
@@ -264,18 +308,18 @@ if (!MYSQL_ON)    Files.copy(source.toPath(), dest.toPath());
  statmt.execute("CREATE TABLE IF NOT EXISTS `Sadi` (   `id` INT(11) NOT NULL AUTO_INCREMENT,  `number` TINYTEXT NOT NULL, `opisan` TINYTEXT NOT NULL,  PRIMARY KEY(`id`))");
  statmt.execute("CREATE TABLE IF NOT EXISTS `Komps` (  `id` INT(11) NOT NULL AUTO_INCREMENT,  `number` TINYTEXT NOT NULL, `ips` TINYTEXT NOT NULL,`flag` TINYTEXT NOT NULL,  PRIMARY KEY(`id`))");
  statmt.execute("CREATE TABLE IF NOT EXISTS `VERSION` (   `id` INT(11) NOT NULL AUTO_INCREMENT,  `GET_VERSION` TINYTEXT NULL,  PRIMARY KEY(`id`))");
- resSet3 = statmt.executeQuery("SELECT * FROM VERSION");
+               }
+                resSet3 = statmt.executeQuery("SELECT * FROM VERSION");
                 while(resSet3.next())
                 vers = resSet3.getString("GET_VERSION");
                 if (vers == null)
                 {
-                     statmt.executeUpdate("INSERT INTO `VERSION` (GET_VERSION) VALUE ('"+VERSION_+"')");
+                     statmt.executeUpdate("INSERT INTO `VERSION` (GET_VERSION) VALUES ('"+VERSION_+"')");
                      statmt.executeUpdate("INSERT INTO `Sadi` (number,opisan) VALUES ('ТЕСТ','ТЕСТ')");
                      statmt.executeUpdate("INSERT INTO `Komps` (number,ips,flag) VALUES ('ТЕСТ','ТЕСТ','ТЕСТ')");
                 }
 		System.out.println("Таблица создана или уже существует.");
-                
-               }
+               
 	   }
 	
         
