@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="PreSchoolEducation_browser.jnlp">
+  <information>
+    <title>PreSchoolEducation</title>
+    <vendor>Силантьев Олег</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="PreSchoolEducation.jar" size="241612" download="eager" />
+    <jar href="lib\sqlcipher.jar" size="103384" download="eager" />
+    <jar href="lib\sqlite-jdbc-3.16.1.jar" size="6161579" download="eager" />
+  </resources>
+  <applet-desc  width="0" height="0" main-class="preschooleducation.PreSchoolEducation"  name="PreSchoolEducation" >
+  </applet-desc>
+  <update check="background"/>
+</jnlp>
